@@ -1,0 +1,284 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict DKzyEWMd1rx3NJ0sjIDKGKZq1cXa34Y0jo01veh6nuPs7wN5DCCRN4nEPBC4W0k
+
+-- Dumped from database version 17.6
+-- Dumped by pg_dump version 17.6
+
+-- Started on 2025-09-16 16:31:06
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 218 (class 1259 OID 16399)
+-- Name: aprendiz; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.aprendiz (
+    idaprendiz integer NOT NULL,
+    tipodoc character varying(3) DEFAULT 'CC'::character varying NOT NULL,
+    documento character varying(10) NOT NULL,
+    nombres character varying(100) NOT NULL,
+    telefono character varying(10) NOT NULL,
+    correopersonal character varying(200) NOT NULL,
+    rol character varying(15) DEFAULT 'aprendiz'::character varying NOT NULL,
+    intentosfallidos integer DEFAULT 0 NOT NULL,
+    fechacreacion character varying(30) NOT NULL,
+    estado character varying(30) DEFAULT 'Inscrito'::character varying NOT NULL,
+    llave character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.aprendiz OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16398)
+-- Name: aprendiz_idaprendiz_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.aprendiz_idaprendiz_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.aprendiz_idaprendiz_seq OWNER TO postgres;
+
+--
+-- TOC entry 4928 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: aprendiz_idaprendiz_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.aprendiz_idaprendiz_seq OWNED BY public.aprendiz.idaprendiz;
+
+
+--
+-- TOC entry 222 (class 1259 OID 16420)
+-- Name: perfil; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.perfil (
+    idperfil integer NOT NULL,
+    documentoperfil character varying(10) NOT NULL,
+    nombreperfil character varying(100) NOT NULL,
+    rh character varying(3),
+    regional character varying(200) DEFAULT 'Regional Antioquia'::character varying NOT NULL,
+    centro character varying(200) DEFAULT 'Centro Del Diseño y Manufactura Del Cuero'::character varying NOT NULL,
+    ficha character varying(10),
+    telefono character varying(10),
+    fechaexpedicion character varying(10),
+    correosena character varying(200),
+    correopersonal character varying(200),
+    subsidio1 character varying(100) DEFAULT '0'::character varying NOT NULL,
+    subsidio2 character varying(100) DEFAULT '0'::character varying NOT NULL,
+    subsidio3 character varying(100) DEFAULT '0'::character varying NOT NULL,
+    patrocinio character varying(100) DEFAULT '0'::character varying,
+    foto bytea
+);
+
+
+ALTER TABLE public.perfil OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16419)
+-- Name: perfil_idperfil_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.perfil_idperfil_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.perfil_idperfil_seq OWNER TO postgres;
+
+--
+-- TOC entry 4929 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: perfil_idperfil_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.perfil_idperfil_seq OWNED BY public.perfil.idperfil;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16412)
+-- Name: tokenaprendiz; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tokenaprendiz (
+    idtokenaprendiz integer NOT NULL,
+    usuario character varying(10) NOT NULL,
+    nombreaprendiz character varying(100) NOT NULL,
+    rol character varying(30) DEFAULT 'Aprendiz'::character varying NOT NULL,
+    token character varying(255) NOT NULL,
+    dispositivo character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.tokenaprendiz OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16411)
+-- Name: tokenaprendiz_idtokenaprendiz_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tokenaprendiz_idtokenaprendiz_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.tokenaprendiz_idtokenaprendiz_seq OWNER TO postgres;
+
+--
+-- TOC entry 4930 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: tokenaprendiz_idtokenaprendiz_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tokenaprendiz_idtokenaprendiz_seq OWNED BY public.tokenaprendiz.idtokenaprendiz;
+
+
+--
+-- TOC entry 4752 (class 2604 OID 16402)
+-- Name: aprendiz idaprendiz; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.aprendiz ALTER COLUMN idaprendiz SET DEFAULT nextval('public.aprendiz_idaprendiz_seq'::regclass);
+
+
+--
+-- TOC entry 4759 (class 2604 OID 16423)
+-- Name: perfil idperfil; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.perfil ALTER COLUMN idperfil SET DEFAULT nextval('public.perfil_idperfil_seq'::regclass);
+
+
+--
+-- TOC entry 4757 (class 2604 OID 16415)
+-- Name: tokenaprendiz idtokenaprendiz; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tokenaprendiz ALTER COLUMN idtokenaprendiz SET DEFAULT nextval('public.tokenaprendiz_idtokenaprendiz_seq'::regclass);
+
+
+--
+-- TOC entry 4918 (class 0 OID 16399)
+-- Dependencies: 218
+-- Data for Name: aprendiz; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.aprendiz (idaprendiz, tipodoc, documento, nombres, telefono, correopersonal, rol, intentosfallidos, fechacreacion, estado, llave) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4922 (class 0 OID 16420)
+-- Dependencies: 222
+-- Data for Name: perfil; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.perfil (idperfil, documentoperfil, nombreperfil, rh, regional, centro, ficha, telefono, fechaexpedicion, correosena, correopersonal, subsidio1, subsidio2, subsidio3, patrocinio, foto) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4920 (class 0 OID 16412)
+-- Dependencies: 220
+-- Data for Name: tokenaprendiz; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tokenaprendiz (idtokenaprendiz, usuario, nombreaprendiz, rol, token, dispositivo) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4931 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: aprendiz_idaprendiz_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.aprendiz_idaprendiz_seq', 1, false);
+
+
+--
+-- TOC entry 4932 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: perfil_idperfil_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.perfil_idperfil_seq', 1, false);
+
+
+--
+-- TOC entry 4933 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: tokenaprendiz_idtokenaprendiz_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tokenaprendiz_idtokenaprendiz_seq', 1, false);
+
+
+--
+-- TOC entry 4767 (class 2606 OID 16410)
+-- Name: aprendiz aprendiz_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.aprendiz
+    ADD CONSTRAINT aprendiz_pkey PRIMARY KEY (idaprendiz);
+
+
+--
+-- TOC entry 4771 (class 2606 OID 16433)
+-- Name: perfil perfil_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.perfil
+    ADD CONSTRAINT perfil_pkey PRIMARY KEY (idperfil);
+
+
+--
+-- TOC entry 4769 (class 2606 OID 16418)
+-- Name: tokenaprendiz tokenaprendiz_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tokenaprendiz
+    ADD CONSTRAINT tokenaprendiz_pkey PRIMARY KEY (idtokenaprendiz);
+
+
+-- Completed on 2025-09-16 16:31:06
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict DKzyEWMd1rx3NJ0sjIDKGKZq1cXa34Y0jo01veh6nuPs7wN5DCCRN4nEPBC4W0k
+
